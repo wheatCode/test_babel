@@ -5,7 +5,7 @@ window.merge = merge;
 
 let serverOptions = {
   headless: true,
-  waitForTimeOut: 1000,
+  waitForTimeOut: 100,
 };
 let { headless, waitForTimeOut } = serverOptions;
 
@@ -13,7 +13,7 @@ describe("labeling-tool", () => {
   jest.setTimeout(500000);
   let spanElement, url, code, title, content, browser, page;
   beforeAll(async () => {
-    browser = await puppeteer.launch({ headless, args: ["--start-maximized"] });
+    browser = await puppeteer.launch({ headless, args: ['--no-sandbox'] });
     page = await browser.newPage();
     await page.setDefaultNavigationTimeout(0);
     await page.setViewport({
@@ -321,10 +321,18 @@ describe("labeling-tool", () => {
     await page.exposeFunction("myFunc", () => {
       window.merge(
         [
-          `${process.cwd()}/pdf/完成訂單.pdf`,
-          `${process.cwd()}/pdf/取得JSON網址.pdf`
+          `${process.cwd()}/pdf/第一步驟-取得JSON網址.pdf`,
+          `${process.cwd()}/pdf/第二步驟-登入活動頁面.pdf`
+          ,
+          `${process.cwd()}/pdf/第三步驟-data-code解碼.pdf`
+          ,
+          `${process.cwd()}/pdf/第四步驟-填寫票數.pdf`
+          ,
+          `${process.cwd()}/pdf/第五步驟-填寫表單.pdf`
+          ,
+          `${process.cwd()}/pdf/第六步驟-完成訂單.pdf`
         ],
-        `${process.cwd()}/pdf/a.pdf`,
+        `${process.cwd()}/pdf/流程.pdf`,
         function (err) {
           if (err) {
             return console.log(err);
